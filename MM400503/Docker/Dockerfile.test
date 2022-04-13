@@ -1,0 +1,5 @@
+FROM build-agent
+
+WORKDIR /application/app
+
+CMD ["yarn","test:server"]
