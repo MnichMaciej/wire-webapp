@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                 script { 
+                script { 
                     properties([
                         parameters([
                             string(
@@ -15,9 +15,11 @@ pipeline {
                         ])
                     ])
                 }
+                
                 sh 'ls -al'
                 sh 'pwd'
                 echo "TAG: ${tag}"
+                git branch: "${tag}"
             }
         }
     }
