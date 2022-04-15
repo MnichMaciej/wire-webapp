@@ -1,42 +1,12 @@
 pipeline {
     agent any
-    // parameters {
-    //     gitParameter name: 'TAG',
-    //                  type: 'PT_TAG',
-    //                  defaultValue: 'master'
-    // }
+
     stages {
         stage('Build') {
             steps {
-                script { 
-                    properties([
-                        parameters([
-                            string(
-                                defaultValue: '', 
-                                name: 'TAG', 
-                                trim: true
-                            )
-                        ])
-                    ])
-                }
-                //  checkout([$class: 'GitSCM',
-                //           branches: [[name: "${params.TAG}"]],
-                //           doGenerateSubmoduleConfigurations: false,
-                //           extensions: [],
-                //           gitTool: 'Default',
-                //           submoduleCfg: [],
-                //           userRemoteConfigs: [[url: 'https://github.com/MnichMaciej/wire-webapp.git']]
-                //         ])
-                params.each {param ->
-  println "${param.key} -> ${param.value} "
-}
                 sh 'ls -al'
                 sh 'pwd'
                 echo "TAG: ${TAG}"
-                sh "git checkout refs/tags/${TAG}"
-                sh 'ls -al'
-                sh 'pwd'
-                
             }
         }
     }
