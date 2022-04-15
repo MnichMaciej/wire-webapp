@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    parameters {
-        gitParameter name: 'TAG',
-                    type: 'PT_TAG',
-                    defaultValue: 'master'
+    // parameters {
+    //     gitParameter name: 'TAG',
+    //                  type: 'PT_TAG',
+    //                  defaultValue: 'master'
     }
     stages {
         stage('Build') {
@@ -19,18 +19,19 @@ pipeline {
                 //         ])
                 //     ])
                 // }
-                 checkout([$class: 'GitSCM',
-                          branches: [[name: "${params.TAG}"]],
-                          doGenerateSubmoduleConfigurations: false,
-                          extensions: [],
-                          gitTool: 'Default',
-                          submoduleCfg: [],
-                          userRemoteConfigs: [[url: 'https://github.com/MnichMaciej/wire-webapp.git']]
-                        ])
+                //  checkout([$class: 'GitSCM',
+                //           branches: [[name: "${params.TAG}"]],
+                //           doGenerateSubmoduleConfigurations: false,
+                //           extensions: [],
+                //           gitTool: 'Default',
+                //           submoduleCfg: [],
+                //           userRemoteConfigs: [[url: 'https://github.com/MnichMaciej/wire-webapp.git']]
+                //         ])
                 
                 sh 'ls -al'
                 sh 'pwd'
                 echo "TAG: ${TAG}"
+                sh "git branch"
                 // git branch: "refs/tags/${tag}", url: 'https://github.com/MnichMaciej/wire-webapp.git'
             }
         }
