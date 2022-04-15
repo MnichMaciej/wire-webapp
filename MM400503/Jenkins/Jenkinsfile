@@ -5,6 +5,9 @@ pipeline {
     //                  type: 'PT_TAG',
     //                  defaultValue: 'master'
     // }
+    parameters {
+        string(name: 'TAG', defaultValue: '')
+    }
     stages {
         stage('Build') {
             steps {
