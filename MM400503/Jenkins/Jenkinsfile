@@ -31,7 +31,7 @@ pipeline {
                 sh 'ls -al'
                 sh 'pwd'
                 echo "TAG: ${TAG}"
-                sh "git checkout tags/${TAG}"
+                sh "git checkout refs/tags/${TAG}"
                 sh 'ls -al'
                 sh 'pwd'
                 
