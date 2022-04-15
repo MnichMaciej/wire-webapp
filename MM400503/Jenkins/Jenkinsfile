@@ -11,7 +11,7 @@ pipeline {
             }
         }
         stage('Build'){
-            step{
+            steps{
                 dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
                     sh 'pwd'
                     sh 'ls'
