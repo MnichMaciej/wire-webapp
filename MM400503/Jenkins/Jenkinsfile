@@ -27,7 +27,9 @@ pipeline {
                 //           submoduleCfg: [],
                 //           userRemoteConfigs: [[url: 'https://github.com/MnichMaciej/wire-webapp.git']]
                 //         ])
-                
+                params.each {param ->
+  println "${param.key} -> ${param.value} "
+}
                 sh 'ls -al'
                 sh 'pwd'
                 echo "TAG: ${TAG}"
