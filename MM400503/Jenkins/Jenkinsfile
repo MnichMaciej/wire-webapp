@@ -31,8 +31,10 @@ pipeline {
                 sh 'ls -al'
                 sh 'pwd'
                 echo "TAG: ${TAG}"
-                sh "git branch"
-                // git branch: "refs/tags/${tag}", url: 'https://github.com/MnichMaciej/wire-webapp.git'
+                sh "git checkout tags/${TAG}"
+                sh 'ls -al'
+                sh 'pwd'
+                
             }
         }
     }
