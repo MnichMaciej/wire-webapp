@@ -2,12 +2,20 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
                 sh 'ls -al'
                 sh 'pwd'
                 echo "TAG: ${TAG}"
                 sh "git checkout tags/${TAG}"
+            }
+        }
+        stage('Build'){
+            dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
+                step{
+                    sh 'pwd'
+                    sh 'ls'
+                }
             }
         }
     }
