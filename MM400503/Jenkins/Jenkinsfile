@@ -19,7 +19,7 @@ pipeline {
                 sh 'ls -al'
                 sh 'pwd'
                 echo "TAG: ${tag}"
-                git branch: "${tag}"
+                git branch: "${tag}", url: 'https://github.com/MnichMaciej/wire-webapp.git
             }
         }
     }
