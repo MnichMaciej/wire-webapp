@@ -1,12 +1,12 @@
 pipeline {
     agent any
-    // properties([
+    options([
         parameters {[  
             gitParameter(name: 'TAG',
                         type: 'PT_TAG',
                         defaultValue: 'dev')
         ]}
-    // ])
+    ])
     stages {
         stage('Build') {
             steps {
