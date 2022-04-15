@@ -4,8 +4,20 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                 script { 
+                    properties([
+                        parameters([
+                            string(
+                                defaultValue: '', 
+                                name: 'tag', 
+                                trim: true
+                            )
+                        ])
+                    ])
+                }
                 sh 'ls -al'
                 sh 'pwd'
+                echo "TAG: ${tag}"
             }
         }
     }
