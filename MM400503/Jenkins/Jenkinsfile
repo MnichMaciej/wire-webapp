@@ -12,7 +12,6 @@ pipeline {
             steps{
                 dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
                     sh 'docker-compose -f ./docker-compose.yml build --no-cache build-agent'
-                    sh 'docker images'
                 }
             }
             post{
@@ -21,6 +20,13 @@ pipeline {
                 }
                 failure{
                     echo "Build failed!"
+                }
+            }
+        }
+        stage('Test'){
+            steps{
+                dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
+                    sh 'docker-compose -f ./docker-compose.yml build --no-cache test-agent'
                 }
             }
         }
