@@ -27,11 +27,12 @@ pipeline {
             steps{
                 dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
                     sh 'docker-compose -f ./docker-compose.yml build --no-cache test-agent'
-                    sh 'TEST_OUTPUT =  $(docker-compose up test-agent)'
-                    sh 'IFS=$\'\n\' read -r -d \'\' -a test_array < <(  grep \'Tests:\' <<< $TEST_OUTPUT | tr \',\' \'\n\' | sed -e \'s/^[[:space:]]*//\' && printf \'\0\' )'
-                    sh 'unset test_array[2]'
-                    sh 'IFS=$\'\n\' read -r -d \'\' -a test_results < <( printf \'%s\n\' \'${test_array[@]}\' | tr \' \' \'\n\' && printf \'\0\' )'
-                    sh "if [ ${test_results[0]} == ${test_results[2]} ]; then echo '100% passed'; else echo 'Failure. Rate  ${test_results[0]}/${test_results[2]}; return 1;fi'  fi"
+                    sh '''TEST_OUTPUT =  $(docker-compose up test-agent)
+                        IFS=$\'\n\' read -r -d \'\' -a test_array < <(  grep \'Tests:\' <<< $TEST_OUTPUT | tr \',\' \'\n\' | sed -e \'s/^[[:space:]]*//\' && printf \'\0\' )'
+                        unset test_array[2]'
+                        IFS=$\'\n\' read -r -d \'\' -a test_results < <( printf \'%s\n\' \'${test_array[@]}\' | tr \' \' \'\n\' && printf \'\0\' )'
+                        if [ ${test_results[0]} == ${test_results[2]} ]; then echo \'100% passed\'; else echo \'Failure. Rate  ${test_results[0]}/${test_results[2]}; return 1;fi\'
+                        '''
                 }
             }
              post{
