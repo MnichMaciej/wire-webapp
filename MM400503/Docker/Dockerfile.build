@@ -1,11 +1,9 @@
 FROM node:16-alpine as git-install
-RUN apk add --no-cache dumb-init bash
+RUN apk add --no-cache dumb-init git bash
 
 FROM git-install as repo  
 COPY . /application
 WORKDIR /application
-RUN pwd
-RUN ls
 RUN yarn
 RUN mv .env.localhost .env
 RUN yarn build:prod
