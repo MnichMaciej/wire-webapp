@@ -27,12 +27,15 @@ pipeline {
             steps{
                 dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
                     sh 'docker-compose -f ./docker-compose.yml build --no-cache test-agent'
-                    sh '''TEST_OUTPUT = $(docker-compose  --ansi never up --force-recreate -d test-agent)
-                        IFS=$\'\n\' read -r -d \'\' -a test_array < <(  grep \'Tests:\' <<< $TEST_OUTPUT | tr \',\' \'\n\' | sed -e \'s/^[[:space:]]*//\' && printf \'\0\' )'
-                        unset test_array[2]'
-                        IFS=$\'\n\' read -r -d \'\' -a test_results < <( printf \'%s\n\' \'${test_array[@]}\' | tr \' \' \'\n\' && printf \'\0\' )'
-                        if [ ${test_results[0]} == ${test_results[2]} ]; then echo \'100% passed\'; else echo \'Failure. Rate  ${test_results[0]}/${test_results[2]}; return 1;fi\'
-                        '''
+                    sh 'docker-compose  up --force-recreate -d test-agent'
+                    sh '''
+                        TEST_OUTPUT=`docker-compose logs`
+                        TEST_OUTPUT=`echo $TEST | tr '|' '\n' | grep 'Tests: ' | sed -e 's/^[[:space:]]*//'`
+                        RESULTS=($TEST_OUTPUT)
+                        PASSED=${RESULTS[2]}
+                        TOTAL=${RESULtS[4]}
+                        if [ $PASSED == $TOTAL ]; then echo 100% passed; else echo Failure. Rate  $(awk -v var1=$PASSED -v var2=$TOTAL 'BEGIN { print  ( var1 / var2 * 100 ) }'); return 1;fi
+                    '''
                 }
             }
              post{
