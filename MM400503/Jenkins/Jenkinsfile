@@ -33,7 +33,7 @@ pipeline {
                         TEST_OUTPUT=`echo $TEST_OUTPUT | tr '|' '\n' | grep 'Tests: ' | sed -e 's/^[[:space:]]*//'`
                         PASSED=$(echo $TEST_OUTPUT | awk -F ' ' '{print $3}')
                         TOTAL=$(echo $TEST_OUTPUT | awk -F ' ' '{print $5}')
-                        if [ $PASSED == $TOTAL ]; then echo 100% passed; else echo Failure. Rate  $(awk -v var1=$PASSED -v var2=$TOTAL 'BEGIN { print  ( var1 / var2 * 100 ) }'); return 1;fi
+                        if [ $PASSED == '123' ]; then echo 100% passed; else echo Failure. Rate  $(awk -v var1=$PASSED -v var2=$TOTAL 'BEGIN { print  ( var1 / var2 * 100 ) }'); return 1;fi
                     '''
                 }
             }
