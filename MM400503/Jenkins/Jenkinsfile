@@ -4,8 +4,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                sh 'ls -al'
-                sh 'pwd'
                 echo "TAG: ${TAG}"
                 sh "git checkout tags/${TAG}"
             }
@@ -13,8 +11,16 @@ pipeline {
         stage('Build'){
             steps{
                 dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
-                    sh 'pwd'
-                    sh 'ls'
+                    sh 'docker-compose build --no-cache build-agent'
+                    sh 'docker images'
+                }
+            }
+            post{
+                success{
+                    echo "Built successfully!"
+                }
+                failure{
+                    echo "Build failed!"
                 }
             }
         }
