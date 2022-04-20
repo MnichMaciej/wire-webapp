@@ -11,7 +11,7 @@ pipeline {
         stage('Build'){
             steps{
                 dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
-                    sh 'docker-compose -f ./docker-compose.yml build --no-cache build-agent'
+                    sh "docker-compose -f ./docker-compose.yml build --no-cache --build-arg TAG=${TAG} build-agent"
                 }
             }
             post{
@@ -26,7 +26,7 @@ pipeline {
         stage('Test'){
             steps{
                 dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
-                    sh 'docker-compose -f ./docker-compose.yml build --no-cache test-agent'
+                    sh "docker-compose -f ./docker-compose.yml build --no-cache --build-arg TAG=${TAG} test-agent"
                     sh 'docker-compose  up --force-recreate -d test-agent'
                     sh '''
                         TEST_OUTPUT=`docker-compose logs`
@@ -46,7 +46,11 @@ pipeline {
                 }
             }
         }
-        stage('Deploy')
+        stage('Deploy'){
+            steps{
+               sh "docker push build-agent:${TAG}"
+            }
+        }
     }
 
 }

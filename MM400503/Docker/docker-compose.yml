@@ -3,10 +3,10 @@ services:
     build:
       context: ../../app
       dockerfile: ../MM400503/Docker/Dockerfile.build
-    image: build-agent
+    image: build-agent:${TAG}
   test-agent:
     build: 
       context: ../../app
       dockerfile: ../MM400503/Docker/Dockerfile.test
     depends_on:
-      - build-agent
+      - build-agent:${TAG}
