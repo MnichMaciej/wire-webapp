@@ -5,8 +5,10 @@ services:
       dockerfile: ../MM400503/Docker/Dockerfile.build
     image: build-agent:${TAG}
   test-agent:
-    build: 
+    build:
       context: ../../app
       dockerfile: ../MM400503/Docker/Dockerfile.test
+      args:
+          TAG: ${TAG}
     depends_on:
-      - build-agent:${TAG}
+      - build-agent

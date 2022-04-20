@@ -1,3 +1,4 @@
-FROM build-agent
+ARG TAG
+FROM build-agent:${TAG}
 
 CMD ["yarn","test:server"]
