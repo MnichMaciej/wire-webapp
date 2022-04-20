@@ -49,7 +49,7 @@ pipeline {
         stage('Deploy'){
             steps{
                 sh "docker login"
-                sh "docker push build-agent:${TAG}"
+                sh "docker push mnichmaciej/build-agent:${TAG}"
             }
         }
     }
