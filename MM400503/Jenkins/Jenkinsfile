@@ -57,16 +57,16 @@ pipeline {
                     sh """
                         curl --unix-socket /var/run/docker.sock \
                             -X DELETE \
-                            http:/v1.38/containers/wirewebapp?force=1
+                            http:/v1.41/containers/wirewebapp?force=1
                         """
                     sh """
-                        curl --unix-socket /var/run/docker.sock \
+                        curl -I --unix-socket /var/run/docker.sock \
                             -H "Content-Type: application/json" \
                             -d @create-container.json \
                             -X POST \
-                            http:/v1.38/containers/create?name=wirewebapp
+                            http:/v1.41/containers/create?name=wirewebapp
                         """
-                    sh "curl --unix-socket /var/run/docker.sock -X POST http:/v1.24/containers/wirewebapp/start"
+                    sh "curl -I --unix-socket /var/run/docker.sock -X POST http:/v1.24/containers/wirewebapp/start"
                 }
             }
             post{
