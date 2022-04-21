@@ -66,20 +66,20 @@ pipeline {
                     sh "curl --unix-socket /var/run/docker.sock -X POST http:/v1.24/containers/wirewebapp/start"
                 }
             }
-        }
-        post{
-            always {
-                dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
-                    sh 'docker-compose rm -f'
-                    sh 'docker image rm -f docker_test-agent'
-                    sh "docker image rm -f mnichmaciej/cicd:${TAG}"
+            post{
+                always {
+                    dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
+                        sh 'docker-compose rm -f'
+                        sh 'docker image rm -f docker_test-agent'
+                        sh "docker image rm -f mnichmaciej/cicd:${TAG}"
+                    }
                 }
-            }
-            success {
-                echo 'successfully deploy'
-            }
-            failure{
-                echo 'deploy failed'
+                success {
+                    echo 'successfully deploy'
+                }
+                failure{
+                    echo 'deploy failed'
+                }
             }
         }
     }
