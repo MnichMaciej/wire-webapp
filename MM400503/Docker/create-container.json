@@ -1,5 +1,5 @@
 {
-  "Image": "mnichmaciej/cicd:${tag}",
+  "Image": "mnichmaciej/cicd:${TAG}",
   "HostConfig": {
     "PortBindings": {
       "8080/tcp": [

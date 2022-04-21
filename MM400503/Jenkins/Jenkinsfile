@@ -52,6 +52,9 @@ pipeline {
                     sh "docker login"
                     sh "docker-compose push"
                     sh """
+                        sed -e "s/\${TAG}/${TAG}/" create-container.json > create-container.json
+                        """ 
+                    sh """
                         curl --unix-socket /var/run/docker.sock \
                             -X DELETE \
                             http:/v1.38/containers/wirewebapp?force=1
