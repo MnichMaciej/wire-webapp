@@ -3,7 +3,7 @@ services:
     build:
       context: ../../app
       dockerfile: ../MM400503/Docker/Dockerfile.build
-    image: mnichmaciej/build-agent:${TAG}
+    image: mnichmaciej/cicd:${TAG}
   test-agent:
     build:
       context: ../../app
