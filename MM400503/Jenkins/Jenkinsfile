@@ -51,7 +51,35 @@ pipeline {
                 dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
                     sh "docker login"
                     sh "docker-compose push"
+                    sh """
+                        curl --unix-socket /var/run/docker.sock \
+                            -X DELETE \
+                            http:/v1.38/containers/wirewebapp?force=1
+                        """
+                    sh """
+                        curl --unix-socket /var/run/docker.sock \
+                            -H "Content-Type: application/json" \
+                            -d @create-container.json \
+                            -X POST \
+                            http:/v1.38/containers/create?name=wirewebapp
+                        """
+                    sh "curl --unix-socket /var/run/docker.sock -X POST http:/v1.24/containers/wirewebapp/start"
                 }
+            }
+        }
+        post{
+            always {
+                dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
+                    sh 'docker-compose rm -f'
+                    sh 'docker image rm -f docker_test-agent'
+                    sh "docker image rm -f mnichmaciej/cicd:${TAG}"
+                }
+            }
+            success {
+                echo 'successfully deploy'
+            }
+            failure{
+                echo 'deploy failed'
             }
         }
     }

@@ -8,3 +8,6 @@ RUN yarn
 RUN mv .env.localhost .env
 RUN yarn build:prod
 
+EXPOSE 8080
+
+ENTRYPOINT ["dumb-init", "--", "/bin/bash", "/run.sh"]
