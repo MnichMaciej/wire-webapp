@@ -53,6 +53,7 @@ pipeline {
                     sh "docker-compose push"
                     sh """
                         sed -e "s/\${TAG}/${TAG}/" create-container.json > create-container.json
+                        cat create-container.json
                         """ 
                     sh """
                         curl --unix-socket /var/run/docker.sock \
