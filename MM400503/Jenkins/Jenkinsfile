@@ -48,8 +48,10 @@ pipeline {
         }
         stage('Deploy'){
             steps{
-                sh "docker login"
-                sh "docker-compose push"
+                dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
+                    sh "docker login"
+                    sh "docker-compose push"
+                }
             }
         }
     }
