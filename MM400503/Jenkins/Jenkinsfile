@@ -60,13 +60,13 @@ pipeline {
                             http:/v1.41/containers/wirewebapp?force=1
                         """
                     sh """
-                        curl -I --unix-socket /var/run/docker.sock \
+                        curl --unix-socket /var/run/docker.sock \
                             -H "Content-Type: application/json" \
                             -d @create-container.json \
                             -X POST \
                             http:/v1.41/containers/create?name=wirewebapp
                         """
-                    sh "curl -I --unix-socket /var/run/docker.sock -X POST http:/v1.24/containers/wirewebapp/start"
+                    sh "curl --unix-socket /var/run/docker.sock -X POST http:/v1.24/containers/wirewebapp/start"
                 }
             }
             post{
