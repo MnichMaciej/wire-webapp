@@ -2,14 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                echo "TAG: ${TAG}"
-                sh "git checkout tags/${TAG}"
-            }
-        }
         stage('Build'){
             steps{
+                echo "TAG: ${TAG}"
+                sh "git checkout tags/${TAG}"
                 dir('/var/jenkins_home/workspace/LAB07/MM400503/Docker'){
                     sh "docker-compose -f ./docker-compose.yml build --build-arg TAG=${TAG} build-agent"
                 }
