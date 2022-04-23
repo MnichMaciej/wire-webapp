@@ -16,7 +16,7 @@ pipeline {
             }
             post{
                 success{
-                    echo -e "\033[0;32mBuilt successfully!\033[0m"
+                    sh 'echo -e "\033[0;32mBuilt successfully!\033[0m"'
                 }
                 failure{
                     sh 'echo "\033[0;31mBuild failed!\033[0m"'
