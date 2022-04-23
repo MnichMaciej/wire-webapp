@@ -68,6 +68,10 @@ pipeline {
                             http:/v1.41/containers/create?name=wirewebapp
                         """
                     sh "curl --unix-socket /var/run/docker.sock -X POST http:/v1.24/containers/wirewebapp/start"
+                    sh 'echo "Waiting 10 seconds for container start'
+                    sh "curl --unix-socket /var/run/docker.sock -X GET 'http:/v1.24/containers/wirewebapp/logs?stderr=1&stdout=1' --output logs.json"
+                    sh 'IS_RUNNING=`grep -a -o "Server is running on port" logs.json | wc -l`'
+                    sh 'if [ $IS_RUNNING != 1 ];then return 1;fi'
                 }
             }
             post{
