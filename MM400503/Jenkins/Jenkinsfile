@@ -15,7 +15,7 @@ pipeline {
                     sh 'echo -e "\033[0;32mBuilt successfully!\033[0m"'
                 }
                 failure{
-                    sh 'echo "\033[0;31mBuild failed!\033[0m"'
+                    sh 'echo -e "\033[0;31mBuild failed!\033[0m"'
                 }
             }
         }
@@ -35,10 +35,10 @@ pipeline {
             }
             post{
                 success{
-                    sh 'echo "\033[0;32mTest successfully!\033[0m"'
+                    sh 'echo -e "\033[0;32mTest successfully!\033[0m"'
                 }
                 failure{
-                    sh 'echo "\033[0;31mTest failed!\033[0m"'
+                    sh 'echo -e "\033[0;31mTest failed!\033[0m"'
                 }
             }
         }
@@ -80,10 +80,10 @@ pipeline {
                     }
                 }
                 success {
-                    sh 'echo "\033[0;32msuccessfully deploy\033[0m"'
+                    sh 'echo -e "\033[0;32msuccessfully deploy\033[0m"'
                 }
                 failure{
-                    sh 'echo "\033[0;31mdeploy failed\033[0m"'
+                    sh 'echo -e "\033[0;31mdeploy failed\033[0m"'
                 }
             }
         }
